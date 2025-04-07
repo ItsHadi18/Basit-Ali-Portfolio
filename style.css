@@ -1178,6 +1178,7 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
+
     }
 }
 
@@ -1724,7 +1725,7 @@ footer {
     }
 
     #head {
-        margin-top: 10rem;
+        margin-top: 17rem;
     }
 
     #hd1 {
