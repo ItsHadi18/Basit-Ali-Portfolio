@@ -49,6 +49,7 @@ function cursor() {
   let li5 = document.querySelector("#list5");
   let li6 = document.querySelector("#list6");
   let btn = document.querySelector("#btn1");
+  let btn2 = document.querySelector("#btn2");
   let content = document.querySelector(".description");
   let content2 = document.querySelector(".description2");
   let content3 = document.querySelector(".description3");
@@ -57,7 +58,6 @@ function cursor() {
   let dot1 = document.querySelector(".dot1");
   let dot2 = document.querySelector(".dot2");
   let dot3 = document.querySelector(".dot3");
-  let dot4 = document.querySelector(".dot4");
 
   body.addEventListener("mousemove", function (dets) {
     gsap.to(cursor, {
@@ -213,6 +213,27 @@ function cursor() {
       duration: 1,
     });
   });
+  btn2.addEventListener("mouseenter", function () {
+    gsap.to(cursor, {
+      border: " 1px solid rgb(255, 255, 255)",
+      height: "60px",
+      width: "60px",
+      backgroundColor: "rgba(255, 255, 255, 0.5)",
+    });
+  });
+  btn2.addEventListener("mouseleave", function () {
+    gsap.to(cursor, {
+      border: " none",
+      height: "15px",
+      width: "15px",
+      backgroundColor: "rgba(255, 255, 255, 1)",
+    });
+    gsap.to(btn2, {
+      x: 0,
+      y: 0,
+      duration: 1,
+    });
+  });
   dot1.addEventListener("mouseenter", function () {
     gsap.to(cursor, {
       border: " 1px solid rgb(255, 255, 255)",
@@ -271,27 +292,6 @@ function cursor() {
       backgroundColor: "rgba(255, 255, 255, 1)",
     });
     gsap.to(dot3, {
-      x: 0,
-      y: 0,
-      duration: 1,
-    });
-  });
-  dot4.addEventListener("mouseenter", function () {
-    gsap.to(cursor, {
-      border: " 1px solid rgb(255, 255, 255)",
-      height: "60px",
-      width: "60px",
-      backgroundColor: "rgba(255, 255, 255, 0.5)",
-    });
-  });
-  dot4.addEventListener("mouseleave", function () {
-    gsap.to(cursor, {
-      border: " none",
-      height: "15px",
-      width: "15px",
-      backgroundColor: "rgba(255, 255, 255, 1)",
-    });
-    gsap.to(dot4, {
       x: 0,
       y: 0,
       duration: 1,
@@ -385,8 +385,9 @@ function cursor() {
   });
 }
 cursor();
-const tl = gsap.timeline();
+
 function scroll() {
+  const tl = gsap.timeline();
   tl.from(".pic", {
     opacity: 0,
     y: 50,
@@ -458,7 +459,7 @@ function scroll() {
       trigger: "#skill1:nth-child(1) svg circle:nth-child(2)",
       scroller: "#main",
       start: "top 85%",
-      end: "bottom",
+      end: "bottom  ",
     },
   });
   gsap.to("#skill2:nth-child(1) svg circle:nth-child(2)", {
@@ -496,6 +497,17 @@ function scroll() {
     duration: 1,
     scrollTrigger: {
       trigger: "#btn1",
+      scroller: "#main",
+      start: "top 85%",
+      end: "bottom ",
+      scrub: 2,
+    },
+  });
+  gsap.from("#btn2", {
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: "#btn2",
       scroller: "#main",
       start: "top 85%",
       end: "bottom ",
@@ -658,7 +670,26 @@ function movingEffect() {
       duration: 0.5,
     });
   });
+  let btn2 = document.querySelector("#btn2");
 
+  btn2.addEventListener("mousemove", function (dets) {
+    let dims = btn2.getBoundingClientRect();
+    let xstart = dims.x;
+    let ystart = dims.y;
+    let xend = dims.x + dims.width;
+    let yend = dims.y + dims.height;
+    let zeroone = gsap.utils.mapRange(xstart, xend, 0, 1, dets.clientX);
+    let onetwo = gsap.utils.mapRange(ystart, yend, 0, 1, dets.clientY);
+    function lerp(start, end, amount) {
+      return start + (end - start) * amount;
+    }
+
+    gsap.to(btn2, {
+      x: lerp(-30, 30, zeroone),
+      y: lerp(-30, 30, onetwo),
+      duration: 0.5,
+    });
+  });
   let dot1 = document.querySelector(".dot1");
 
   dot1.addEventListener("mousemove", function (dets) {
@@ -714,26 +745,6 @@ function movingEffect() {
     }
 
     gsap.to(dot3, {
-      x: lerp(-10, 10, zeroone),
-      y: lerp(-10, 10, onetwo),
-      duration: 0.5,
-    });
-  });
-  let dot4 = document.querySelector(".dot4");
-
-  dot4.addEventListener("mousemove", function (dets) {
-    let dims = dot4.getBoundingClientRect();
-    let xstart = dims.x;
-    let ystart = dims.y;
-    let xend = dims.x + dims.width;
-    let yend = dims.y + dims.height;
-    let zeroone = gsap.utils.mapRange(xstart, xend, 0, 1, dets.clientX);
-    let onetwo = gsap.utils.mapRange(ystart, yend, 0, 1, dets.clientY);
-    function lerp(start, end, amount) {
-      return start + (end - start) * amount;
-    }
-
-    gsap.to(dot4, {
       x: lerp(-10, 10, zeroone),
       y: lerp(-10, 10, onetwo),
       duration: 0.5,
